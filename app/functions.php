@@ -146,12 +146,78 @@ function get_social_links_by_profile($user_id)
     $stmt = $db->prepare("SELECT * FROM `user_social` u JOIN `social_media` s ON u.sm_id = s.sm_id WHERE `user_id` = :ui");
     $stmt->bindParam(":ui", $user_id);
     if ($stmt->execute() && $stmt->rowCount() > 0) {
+
+        $result = [];
+        foreach ($stmt->fetchAll() as $value) {
+            $result[$value['sm_id']] = $value;
+        }
+
+        return $result;
+    }
+
+    return false;
+}
+
+function get_social_media_all()
+{
+    global $db;
+
+    $stmt = $db->prepare("SELECT * FROM `social_media`");
+    if ($stmt->execute() && $stmt->rowCount() > 0) {
+        return $stmt->fetchAll();
+    }
+
+    return false;
+}
+
+function get_social_media_by_id($sm_id)
+{
+    global $db;
+
+    $stmt = $db->prepare("SELECT * FROM `social_media` WHERE `sm_id` = :sm");
+    $stmt->bindParam(":sm", $sm_id);
+    if ($stmt->execute() && $stmt->rowCount() > 0) {
         return $stmt->fetch();
     }
 
     return false;
 }
 
+function update_user_social_media($sm_id, $sm_value, $user_id)
+{
+    global $db;
+
+    // check if sm is available 
+    $stmt = $db->prepare("SELECT * FROM `user_social` WHERE `user_id` = :ui AND `sm_id` = :sm");
+    $stmt->bindParam(":ui", $user_id);
+    $stmt->bindParam(":sm", $sm_id);
+
+    if ($stmt->execute()) {
+
+        if ($stmt->rowCount() > 0) {
+            $sql = "UPDATE `user_social` SET `us_name` = :un WHERE `sm_id` = :sm AND `user_id` = :ui";
+        } else {
+            $sql = "INSERT INTO `user_social` (`sm_id`, `user_id`, `us_name`) VALUE (:sm, :ui, :un)";
+        }
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(":ui", $user_id);
+        $stmt->bindParam(":sm", $sm_id);
+        $stmt->bindParam(":un", $sm_value);
+        
+        if ($stmt->execute()) {
+
+            return true;
+
+        } else {
+            return false;
+        }
+
+    } else {
+        return false;
+    }
+
+}
 
 function go($url)
 {

@@ -2,7 +2,7 @@
 <div class="profile-head">
     <div class="profile-avatar">
         <div class="profile-avatar-icon">
-            <img src="<?=URL?>/static/images/default_avatar.png" alt="<?=$profile['user_name']?>">
+            <img src="<?=URL?>/static/images/<?=!empty($profile['user_profile_picture']) ? "uploads/" .$profile['user_profile_picture'] : 'default_avatar.png'?>" alt="<?=$profile['user_name']?>" alt="<?=$profile['user_name']?>">
         </div>
         <div class="profile-name">
             <h2><?=$profile['user_name']?></h2>
@@ -25,8 +25,16 @@
             </div>
 
             <div class="profile-links">
-
-                
+                <?php foreach ($social as $s): if (empty($s['us_name'])) {continue;} ?>
+                <div class="profile-link-box">
+                    <div class="profile-link-icon">
+                        <img src="<?=URL?>/static/images/social/<?=$s['sm_icon']?>" alt="Add">
+                    </div>
+                    <div class="profile-link-description">
+                        <?=$s['sm_name']?>
+                    </div>
+                </div>
+                <?php endforeach ?>
 
                 <a href="<?=URL?>/edit_profile.php" class="profile-link-box">
                     <div class="profile-link-icon">
