@@ -42,7 +42,6 @@ if (isset($_POST) && !empty($_POST)) {
                     $stmt->bindParam(":email", $email);
                     $stmt->bindParam(":slug", $slug);
                     $date_time = date('Y-m-d H:i:s');
-                    echo $date_time;
                     $stmt->bindParam(":uc", $date_time);
 
                     if ($stmt->execute()) {
