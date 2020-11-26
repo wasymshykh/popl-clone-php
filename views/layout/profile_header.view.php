@@ -18,7 +18,7 @@
     <header id="header" class="user">
         <div class="header-inner">
 
-            <?php if(!isset($no_login)): ?>
+            <?php if($logged): ?>
                 <div class="header-link">
                     <div id="menu">
                         <i class="fas fa-bars"></i>
@@ -34,6 +34,46 @@
         </div>
     </header>
 
+<?php if($logged): ?>
+    <div id="user-menu" class="closed">
+        <div class="menu-content">
+
+            <div class="menu-content-inner">
+                <ul>
+                    <li><a href="<?=URL?>/u.php?slug=<?=$logged['user_profile_slug']?>"><i class="menu-icon menu-icon-home"></i> Home</a></li>
+                    <li><a href="<?=URL?>/edit_profile.php"><i class="menu-icon menu-icon-profile"></i> Wijzig Profiel</a></li>
+                    <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-activate"></i> Activate</a></li>
+                    <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-help"></i> Uitleg</a></li>
+                    <li><a href="<?=URL?>/logout.php"><i class="menu-icon menu-icon-logout"></i> Loguit</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        function close_menu() {
+            document.querySelector("#user-menu").classList.add('closed')
+        }
+        function open_menu() {
+            document.querySelector("#user-menu").classList.remove('closed')
+        }
+
+        document.querySelector("#user-menu").addEventListener('click', (e) => {
+            
+            if (e.target.id === "user-menu") {
+                close_menu();
+            }
+            console.log(e.target.id);
+
+        })
+
+        document.querySelector("#menu").addEventListener('click', (e) => {
+            open_menu();
+        })
+    </script>
+<?php endif; ?>
 
     <section id="content">
         <div class="content-inner">

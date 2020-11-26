@@ -139,20 +139,24 @@ function get_profile_by_slug($slug)
     return false;
 }
 
-function get_social_links_by_profile($user_id)
+function get_social_links_by_profile($user_id, $clean = true)
 {
     global $db;
 
-    $stmt = $db->prepare("SELECT * FROM `user_social` u JOIN `social_media` s ON u.sm_id = s.sm_id WHERE `user_id` = :ui");
+    $stmt = $db->prepare("SELECT * FROM `user_social` u JOIN `social_media` s ON u.sm_id = s.sm_id WHERE `user_id` = :ui ORDER BY `us_dated` DESC");
     $stmt->bindParam(":ui", $user_id);
     if ($stmt->execute() && $stmt->rowCount() > 0) {
 
-        $result = [];
-        foreach ($stmt->fetchAll() as $value) {
-            $result[$value['sm_id']] = $value;
+        if ($clean) {
+            $result = [];
+            foreach ($stmt->fetchAll() as $value) {
+                $result[$value['sm_id']] = $value;
+            }
+    
+            return $result;
+        } else {
+            return $stmt->fetchAll();
         }
-
-        return $result;
     }
 
     return false;
@@ -217,6 +221,21 @@ function update_user_social_media($sm_id, $sm_value, $user_id)
         return false;
     }
 
+}
+
+function update_user_instant_status($status, $user_id)
+{
+    
+    global $db;
+
+    $stmt = $db->prepare("UPDATE `users` SET `user_instant` = :ui WHERE `user_id` = :us");
+    $stmt->bindParam(":ui", $status);
+    $stmt->bindParam(":us", $user_id);
+
+    if ($stmt->execute()) {
+        return true;
+    }
+    return false;
 }
 
 function go($url)

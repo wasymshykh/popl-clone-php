@@ -3,19 +3,50 @@
 require 'app/start.php';
 
 $logged = check_auth();
-if (!$logged) {
-    go(URL . '/login.php');
-}
 
 if (!isset($_GET['slug'])) {
-    go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+    if ($logged) {
+        go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+    } else {
+        go(URL);
+    }
 }
 
 $slug = normal_text($_GET['slug']);
 $profile = get_profile_by_slug($slug);
 
 if (!$profile) {
-    go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+    if ($logged) {
+        go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+    } else {
+        go(URL);
+    }
+}
+
+
+$owner = false;
+if ($logged) {
+    if ($logged['user_id'] == $profile['user_id']) {
+        $owner = true;
+    }
+} else {
+    
+    if ($profile['user_instant'] == "ON") {
+        $social = get_social_links_by_profile($profile['user_id'], false);
+
+        $redirect = URL;
+        if ($social) {
+
+            foreach ($social as $value) {
+                if (!empty(normal_text($value['us_name']))) {
+                    $redirect = $value['sm_url'] . $value['us_name'];
+                }
+            }
+
+            go($redirect);
+        }
+    }
+
 }
 
 $social = get_social_links_by_profile($profile['user_id']);
@@ -24,11 +55,9 @@ if (!$social) {
     $social = [];
 }
 
+
 require_once LAYOUT_DIR.'profile_header.view.php';
 
-if ($profile['user_id'] == $logged['user_id']) {
-    include_once PAGE_DIR.'account.view.php';
-} else {
-    include_once PAGE_DIR.'profile.view.php';
-}
+include_once PAGE_DIR.'account.view.php';
+
 include_once LAYOUT_DIR.'profile_footer.view.php';
