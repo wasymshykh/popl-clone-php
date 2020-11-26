@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700;900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="<?=URL?>/static/css/style.css">
+
+    <script src="https://kit.fontawesome.com/dafd3b2d44.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
