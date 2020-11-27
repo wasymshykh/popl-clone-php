@@ -143,7 +143,7 @@ function get_social_links_by_profile($user_id, $clean = true)
 {
     global $db;
 
-    $stmt = $db->prepare("SELECT * FROM `user_social` u JOIN `social_media` s ON u.sm_id = s.sm_id WHERE `user_id` = :ui ORDER BY `us_dated` DESC");
+    $stmt = $db->prepare("SELECT * FROM `user_social` u JOIN `social_media` s ON u.sm_id = s.sm_id WHERE `user_id` = :ui ORDER BY `us_instant`, `us_dated` DESC");
     $stmt->bindParam(":ui", $user_id);
     if ($stmt->execute() && $stmt->rowCount() > 0) {
 
@@ -187,7 +187,7 @@ function get_social_media_by_id($sm_id)
     return false;
 }
 
-function update_user_social_media($sm_id, $sm_value, $user_id)
+function update_user_social_media($sm_id, $sm_value, $user_id, $sm_instant = "1")
 {
     global $db;
 
@@ -199,15 +199,16 @@ function update_user_social_media($sm_id, $sm_value, $user_id)
     if ($stmt->execute()) {
 
         if ($stmt->rowCount() > 0) {
-            $sql = "UPDATE `user_social` SET `us_name` = :un WHERE `sm_id` = :sm AND `user_id` = :ui";
+            $sql = "UPDATE `user_social` SET `us_name` = :un, `us_instant` = :usi WHERE `sm_id` = :sm AND `user_id` = :ui";
         } else {
-            $sql = "INSERT INTO `user_social` (`sm_id`, `user_id`, `us_name`) VALUE (:sm, :ui, :un)";
+            $sql = "INSERT INTO `user_social` (`sm_id`, `user_id`, `us_name`, `us_instant`) VALUE (:sm, :ui, :un, :usi)";
         }
 
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":ui", $user_id);
         $stmt->bindParam(":sm", $sm_id);
         $stmt->bindParam(":un", $sm_value);
+        $stmt->bindParam(":usi", $sm_instant);
         
         if ($stmt->execute()) {
 
@@ -225,7 +226,6 @@ function update_user_social_media($sm_id, $sm_value, $user_id)
 
 function update_user_instant_status($status, $user_id)
 {
-    
     global $db;
 
     $stmt = $db->prepare("UPDATE `users` SET `user_instant` = :ui WHERE `user_id` = :us");
@@ -237,6 +237,23 @@ function update_user_instant_status($status, $user_id)
     }
     return false;
 }
+
+function update_user_password($user_id, $password)
+{
+    global $db;
+
+    $stmt = $db->prepare("UPDATE `users` SET `user_password` = :p WHERE `user_id` = :ui");
+    $stmt->bindParam(":p", $password);
+    $stmt->bindParam(":ui", $user_id);
+
+    if ($stmt->execute()) {
+        return true;
+    }
+    return false;
+}
+
+
+
 
 function go($url)
 {

@@ -47,10 +47,23 @@ ul {
 .header-inner {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    width: 94%;
+    max-width: 600px;
+    margin: 1em 0;
+}
+
+.header-profile-inner {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 94%;
     max-width: 600px;
     margin: 1em 0;
+}
+
+.header-profile-inner.center-header {
+    justify-content: center;
 }
 
 .header-link {
@@ -272,6 +285,57 @@ ul {
     border-top-right-radius: 2em;
     border-bottom-right-radius: 2em;
     outline: none;
+}
+
+.make-instant {
+    display: flex;
+    align-items: center;
+}
+
+.make-instant input {
+    display: none;
+}
+
+.make-instant label {
+    display: block;
+    font-size: 1.4em;
+    position: relative;
+    padding: 0.2em 0.5em;
+}
+
+.make-instant label::before {
+    content: "make instant";
+    width: 90px;
+    font-size: 0.7em;
+    background-color: #1d2329;
+    color: #e0e0e0;
+    line-height: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    padding: 0.2em 0.1em;
+    border-radius: 1em;
+    bottom: -1em;
+    opacity: 0;
+    transition: 0.2s all;
+    pointer-events: none;
+}
+
+.make-instant label:hover::before {
+    opacity: 1;
+    bottom: -0.6em;
+}
+
+.make-instant input:checked ~ label {
+    color: #1fbe67;
+}
+
+.make-instant input:checked ~ label::before {
+    content: "instant";
+    color: #1d2329;
+    width: 70px;
+    background-color: #1fbe67;
 }
 
 .form-input input,

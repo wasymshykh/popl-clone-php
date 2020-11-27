@@ -73,7 +73,7 @@
         </form>
     </div>
 
-    <div class="profile-settings-section">
+    <div class="profile-settings-section" id="socialmedia-section">
         <h3>Social Media</h3>
 
         <form method="POST" action="<?=$_SERVER['PHP_SELF']?>" class="page-form">
@@ -86,7 +86,12 @@
             <?php foreach($social_media as $s): ?>
                 <div class="social-input">
                     <label for="sm-<?=$s['sm_id']?>"><img src="<?=URL?>/static/images/social/<?=$s['sm_icon']?>"></label>
-                    <input type="text" placeholder="Enter your <?=$s['sm_name']?> account" name="sm[<?=$s['sm_id']?>]" value="<?=$social[$s['sm_id']]['us_name'] ?? ''?>" id="sm-<?=$s['sm_id']?>">
+                    <input type="text" placeholder="Enter your <?=$s['sm_name']?> <?=$s['sm_id'] !== "16" ? 'account' : ''?>" name="sm[<?=$s['sm_id']?>]" value="<?=$social[$s['sm_id']]['us_name'] ?? ''?>" id="sm-<?=$s['sm_id']?>">
+
+                    <div class="make-instant">
+                        <input type="radio" name="social-instant" value="<?=$s['sm_id']?>" id="sm-radio-<?=$s['sm_id']?>" <?=$social[$s['sm_id']]['us_instant'] == "0" ? 'checked' : ''?>>
+                        <label for="sm-radio-<?=$s['sm_id']?>"><i class="fas fa-bolt"></i></label>
+                    </div>
                 </div>
             <?php endforeach;?>
 
@@ -95,12 +100,41 @@
             </div>
             <input type="hidden" name="s-s">
         </form>
+    </div>
 
+    <div class="profile-settings-section" id="security-section">
+        <h3>Security Settings</h3>
+
+        <form method="POST" action="<?=$_SERVER['PHP_SELF']?>" class="page-form">
+            <?php if ($msg_security): ?>
+            <div class="form-message form-<?=$msg_security['type']?>">
+                <?=$msg_security['message']?>
+            </div>
+            <?php endif; ?>
+
+            <div class="form-input">
+                <label for="inp-newpassword">New <b>Password</b></label>
+                <input type="password" name="newpassword" id="inp-newpassword" placeholder="" value="" required>
+            </div>
+            <div class="form-input">
+                <label for="inp-oldpassword">Old <b>Password</b></label>
+                <input type="password" name="oldpassword" id="inp-oldpassword" placeholder="" value="" required>
+            </div>
+            <div class="form-submit">
+                <button>Update <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <input type="hidden" name="s-p">
+        </form>
     </div>
     
 </div>
 
 <script>
+
+    <?php if ($msg_security || $msg_social): // check for message and scroll to respective section ?>
+        let theSection = <?= ($msg_security) ? '"security-section"' : ($msg_social ? '"socialmedia-section"' : '') ?>;
+        document.getElementById(theSection).scrollIntoView();
+    <?php endif ?>
     const loadFile = function(event) {
         let output = document.getElementById('avatar');
         output.src = URL.createObjectURL(event.target.files[0]);

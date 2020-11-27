@@ -9,6 +9,7 @@ if (!$logged) {
 
 $msg = false;
 $msg_social = false;
+$msg_security = false;
 $image_msg = false;
 
 $profile = $logged;
@@ -59,8 +60,18 @@ if (isset($_POST['s-s'])) {
                 // check for valid sm id
                 $_sm = get_social_media_by_id($sm_id);
                 if ($_sm) {
+                    
+                    if ($_sm['sm_id'] === "16") {
+                        if (strpos($sm_value,'http://') === false && strpos($sm_value,'https://') === false){
+                            $sm_value = 'https://'.$sm_value;
+                        }
+                    }
 
-                    $status = update_user_social_media($_sm['sm_id'], $sm_value, $logged['user_id']);
+                    if (isset($_POST['social-instant']) && $_POST['social-instant'] == $_sm['sm_id']) {
+                        $status = update_user_social_media($_sm['sm_id'], $sm_value, $logged['user_id'], "0");
+                    } else {
+                        $status = update_user_social_media($_sm['sm_id'], $sm_value, $logged['user_id']);
+                    }
                     if ($status) {
                         $success = true;
                     } else {
@@ -81,6 +92,33 @@ if (isset($_POST['s-s'])) {
 
     } else {
         $msg_social = ['type' => 'error', 'message' => 'Invalid form submission!'];
+    }
+
+} else
+if (isset($_POST['s-p'])) {
+
+    if (isset($_POST['newpassword']) && is_string($_POST['newpassword']) && !empty(normal_text($_POST['newpassword']))) {
+        $new_password = normal_text($_POST['newpassword']);
+        if (isset($_POST['oldpassword']) && is_string($_POST['oldpassword']) && !empty(normal_text($_POST['oldpassword']))) {
+
+            $old_password = normal_text($_POST['oldpassword']);
+            if (password_verify($old_password, $logged['user_password'])) {
+
+                $new_password = password_hash($new_password, PASSWORD_BCRYPT);
+                if (update_user_password($logged['user_id'], $new_password)) {
+                    $msg_security = ['type' => 'success', 'message' => 'Your password is successfully updated!'];
+                } else {
+                    $msg_security = ['type' => 'error', 'message' => 'Cannot update your password!'];
+                }
+
+            } else {
+                $msg_security = ['type' => 'error', 'message' => 'Your old password is incorrect!'];
+            }
+        } else {
+            $msg_security = ['type' => 'error', 'message' => 'Please fill out the old password!'];
+        }
+    } else {
+        $msg_security = ['type' => 'error', 'message' => 'Please fill out the new password!'];
     }
 
 }

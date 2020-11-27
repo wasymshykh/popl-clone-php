@@ -14,7 +14,7 @@
 <div class="profile-card">
     <div class="profile-card-menu">
         <div class="profile-card-menu-item active" id="links">Links</div>
-        <div class="profile-card-menu-item" id="bio">Biography</div>
+        <div class="profile-card-menu-item" id="bio">Biografie</div>
     </div>
     
     <div class="profile-card-content">
@@ -33,7 +33,7 @@
                 <?php if ($owner): ?>
                     <div class="profile-link-box social-media-box <?=$logged['user_instant'] == 'ON' ? (($i > 0) ? 'opacity-low' : '')  : '' ?>">
                     <?php else: ?>
-                    <a href="<?=$s['sm_url'] . $s['sm_name']?>" class="profile-link-box social-media-box">
+                    <a href="<?=$s['sm_url'] . $s['us_name']?>" class="profile-link-box social-media-box">
                 <?php endif; ?>
                     <div class="profile-link-icon">
                         <img src="<?=URL?>/static/images/social/<?=$s['sm_icon']?>" alt="Add">
@@ -78,7 +78,7 @@
 
 <?php if ($profile['user_phone']): ?>
 <div class="vcard">
-    <a href="<?=URL?>/save_vcard/<?=$profile['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
+    <a href="<?=URL?>/save_vcard/<?=$profile['user_profile_slug']?>"><i class="fas fa-plus"></i> Save Contact</a>
 </div>
 <?php endif; ?>
 

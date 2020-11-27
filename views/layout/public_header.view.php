@@ -18,29 +18,9 @@
     <header id="header">
         <div class="header-inner">
 
-            <?php if(isset($logged) && $logged): ?>
-                <div class="header-link">
-                    <a href="<?=URL?>/logout">Logout</a>
-                </div>
-            <?php else: ?>
-                <div class="header-link">
-                    <a href="<?=URL?>/login">Login</a>
-                </div>
-            <?php endif; ?>
-
             <a href="<?=URL?>" class="header-logo">
                 <img src="<?=URL?>/static/images/logo.png" alt="Logo">
             </a>
-
-            <?php if(isset($logged) && $logged): ?>
-                <div class="header-link">
-                    <a href="<?=URL?>/u/<?=$logged['user_profile_slug']?>">Profile</a>
-                </div>
-            <?php else: ?>
-                <div class="header-link">
-                    <a href="<?=URL?>/register">Register</a>
-                </div>
-            <?php endif; ?>
 
         </div>
     </header>

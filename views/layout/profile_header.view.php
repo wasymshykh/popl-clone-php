@@ -16,7 +16,7 @@
 <body>
 
     <header id="header" class="user">
-        <div class="header-inner">
+        <div class="header-profile-inner <?php if(!$logged): echo "center-header"; endif; ?>">
 
             <?php if($logged): ?>
                 <div class="header-link">
