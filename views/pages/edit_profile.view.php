@@ -40,12 +40,23 @@
             <?php endif; ?>
             <div class="form-input">
                 <label for="inp-name">Your <b>Name</b></label>
-                <input type="name" name="name" id="inp-name" placeholder="e.g. John" value="<?=$_POST['name'] ?? $logged['user_name']?>" required>
+                <input type="text" name="name" id="inp-name" placeholder="e.g. John" value="<?=$_POST['name'] ?? $logged['user_name']?>" required>
             </div>
             <div class="form-input">
                 <label for="inp-bio">Your <b>Bio</b></label>
                 <textarea name="bio" id="inp-bio" cols="30" rows="8"><?=$_POST['bio'] ?? $logged['user_bio']?></textarea>
             </div>
+            
+            <div class="form-input">
+                <label for="inp-phone">Your <b>Phone</b></label>
+                <input type="text" name="phone" id="inp-phone" placeholder="e.g. +1302102210" value="<?=$_POST['phone'] ?? $logged['user_phone']?>">
+            </div>
+
+            <div class="form-input">
+                <label for="inp-address">Your <b>Address</b></label>
+                <input type="text" name="address" id="inp-address" placeholder="e.g. 12th street" value="<?=$_POST['address'] ?? $logged['user_address']?>">
+            </div>
+
             <div class="form-submit">
                 <button>Update <i class="fas fa-arrow-right"></i></button>
             </div>

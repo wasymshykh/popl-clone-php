@@ -22,12 +22,16 @@ if (isset($_POST['s-e'])) {
         } else {
             $name = normal_text($_POST['name']);
             $bio = normal_text($_POST['bio']);
+            $phone = normal_text($_POST['phone']);
+            $address = normal_text($_POST['address']);
             
-            $sql = "UPDATE `users` SET `user_name` = :n , `user_bio` = :b WHERE `user_id` = :d";
+            $sql = "UPDATE `users` SET `user_name` = :n , `user_bio` = :b, `user_phone` = :p, `user_address` = :ad WHERE `user_id` = :d";
     
             $stmt = $db->prepare($sql);
             $stmt->bindParam(":n", $name);
             $stmt->bindParam(":b", $bio);
+            $stmt->bindParam(":p", $phone);
+            $stmt->bindParam(":ad", $address);
             $stmt->bindParam(":d", $logged['user_id']);
 
             if ($stmt->execute()) {

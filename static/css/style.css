@@ -396,6 +396,7 @@ ul {
 
 .profile-name {
     margin-top: 0.5em;
+    text-align: center;
 }
 
 .profile-name h2 {
@@ -492,6 +493,7 @@ ul {
 }
 .profile-setting-buttons a i {
     margin-right: 0.6em;
+    pointer-events: none;
 }
 
 .profile-setting-buttons a:nth-child(2) {
@@ -610,6 +612,25 @@ ul {
     display: flex;
     align-items: center;
     padding: 0.5em 1em;
+}
+
+.vcard {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+.vcard a {
+    padding: 0.5em 3em;
+    background: linear-gradient(#00c1e3, #00efd1);
+    border-radius: 2em;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.vcard a i { 
+    margin-right: 0.6em;
+    font-size: 0.9em;
 }
 
 /* Footer */

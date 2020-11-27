@@ -1,0 +1,6 @@
+{
+    "require": {
+        "jeroendesloovere/vcard": "^1.7",
+        "behat/transliterator": "^1.3"
+    }
+}

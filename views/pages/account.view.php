@@ -6,7 +6,7 @@
         </div>
         <div class="profile-name">
             <h2><?=$profile['user_name']?></h2>
-            <p><span id="profile-url"><?=$profile['user_profile_slug']?></span> <i class="fas fa-copy" id="copy"></i></p>
+            <p><span id="profile-url"><?=URL?>/u.php?slug=<?=$profile['user_profile_slug']?></span> <i class="fas fa-copy" id="copy"></i></p>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
 
             <?php if($owner): ?>
             <div class="profile-setting-buttons">
-                <a href="<?=URL?>/action.php?instant=<?=strtolower($logged['user_instant'])?>"><i class="fas fa-toggle-<?=strtolower($logged['user_instant'])?>"></i> Instant <span><?=strtolower($logged['user_instant'])?></span></a>
+                <a id="change-instant" href="<?=URL?>/action.php?instant=<?=strtolower($logged['user_instant'])?>"><i class="fas fa-toggle-<?=strtolower($logged['user_instant'])?>"></i> Instant <span><?=strtolower($logged['user_instant'])?></span></a>
                 <a href="<?=URL?>/edit_profile.php"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
             </div>
             <?php endif; ?>
@@ -74,6 +74,12 @@
     </div>
 </div>
 
+<?php if ($profile['user_phone']): ?>
+<div class="vcard">
+    <a href="<?=URL?>/save_vcard.php?slug=<?=$logged['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
+</div>
+<?php endif; ?>
+
 <script>
 
     document.querySelector("#links").addEventListener('click', () => {
@@ -112,5 +118,64 @@
         document.body.removeChild(input);
         return result;
     }
+
+
+    <?php if($owner): ?>
+
+        document.querySelector("#change-instant").addEventListener('click', (e)=>{
+            e.preventDefault();
+            let s = "on";
+            
+            if (e.target.text.trim() === "Instant off") {
+                s = "off"
+            }
+            change_instant(s);
+        })
+
+        function remove_opacity() {
+
+            let smboxes = document.querySelectorAll(".profile-link-box")
+
+            for (let i = 0; i < smboxes.length; i++) {
+                const element = smboxes[i];
+                element.classList.remove('opacity-low')
+            }
+
+        }
+
+        function add_opacity() {
+            let smboxes = document.querySelectorAll(".profile-link-box")
+
+            for (let i = 1; i < smboxes.length; i++) {
+                const element = smboxes[i];
+                element.classList.add('opacity-low')
+            }
+
+        }
+
+        function change_instant(s) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+
+                    if (s === "on") {
+                        btn_html = '<i class="fas fa-toggle-off"></i> Instant off';
+                        remove_opacity();
+
+                    } else {
+                        btn_html = '<i class="fas fa-toggle-on"></i> Instant on';
+                        add_opacity();
+
+                    }
+                    document.querySelector("#change-instant").innerHTML = btn_html; 
+                    console.log('yess');
+
+                }
+            };
+            xhttp.open("GET", "<?=URL?>/action.php?instant="+s, true);
+            xhttp.send();
+        }
+
+    <?php endif; ?>
 
 </script>
