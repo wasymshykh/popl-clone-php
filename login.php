@@ -29,7 +29,7 @@ if (isset($_POST) && !empty($_POST)) {
                         insert_session_data($db, session_id(), $data['user_id']);
                     }
 
-                    header('location: ' . URL . '/u.php?slug=' . $data['user_profile_slug']);
+                    header('location: ' . URL . '/u/' . $data['user_profile_slug']);
 
 
                 } else {

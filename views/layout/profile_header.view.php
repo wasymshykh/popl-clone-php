@@ -27,7 +27,7 @@
             <?php endif; ?>
 
             <a href="<?=URL?>" class="header-logo">
-                <img src="static/images/logo.png" alt="Logo">
+                <img src="<?=URL?>/static/images/logo.png" alt="Logo">
             </a>
             
             <div></div>
@@ -40,11 +40,11 @@
 
             <div class="menu-content-inner">
                 <ul>
-                    <li><a href="<?=URL?>/u.php?slug=<?=$logged['user_profile_slug']?>"><i class="menu-icon menu-icon-home"></i> Home</a></li>
-                    <li><a href="<?=URL?>/edit_profile.php"><i class="menu-icon menu-icon-profile"></i> Wijzig Profiel</a></li>
+                    <li><a href="<?=URL?>/u/<?=$logged['user_profile_slug']?>"><i class="menu-icon menu-icon-home"></i> Home</a></li>
+                    <li><a href="<?=URL?>/edit_profile"><i class="menu-icon menu-icon-profile"></i> Wijzig Profiel</a></li>
                     <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-activate"></i> Activate</a></li>
                     <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-help"></i> Uitleg</a></li>
-                    <li><a href="<?=URL?>/logout.php"><i class="menu-icon menu-icon-logout"></i> Loguit</a></li>
+                    <li><a href="<?=URL?>/logout"><i class="menu-icon menu-icon-logout"></i> Loguit</a></li>
                 </ul>
             </div>
 

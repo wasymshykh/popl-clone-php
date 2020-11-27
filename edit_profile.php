@@ -4,7 +4,7 @@ require 'app/start.php';
 
 $logged = check_auth();
 if (!$logged) {
-    go(URL . '/login.php');
+    go(URL . '/login');
 }
 
 $msg = false;

@@ -1,6 +1,6 @@
 <div class="page-top">
     <div class="page-back">
-        <a href="<?=URL?>/u.php?slug=<?=$logged['user_profile_slug']?>">
+        <a href="<?=URL?>/u/<?=$logged['user_profile_slug']?>">
             <i class="fas fa-arrow-left"></i>
         </a>
     </div>

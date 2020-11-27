@@ -6,7 +6,7 @@ $logged = check_auth();
 
 if (!isset($_GET['slug'])) {
     if ($logged) {
-        go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+        go(URL . '/u/' . $logged['user_profile_slug']);
     } else {
         go(URL);
     }
@@ -17,7 +17,7 @@ $profile = get_profile_by_slug($slug);
 
 if (!$profile) {
     if ($logged) {
-        go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+        go(URL . '/u/' . $logged['user_profile_slug']);
     } else {
         go(URL);
     }

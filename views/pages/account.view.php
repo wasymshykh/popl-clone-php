@@ -6,7 +6,7 @@
         </div>
         <div class="profile-name">
             <h2><?=$profile['user_name']?></h2>
-            <p><span id="profile-url"><?=URL?>/u.php?slug=<?=$profile['user_profile_slug']?></span> <i class="fas fa-copy" id="copy"></i></p>
+            <p><span id="profile-url"><?=URL?>/u/<?=$profile['user_profile_slug']?></span> <i class="fas fa-copy" id="copy"></i></p>
         </div>
     </div>
 </div>
@@ -22,8 +22,8 @@
 
             <?php if($owner): ?>
             <div class="profile-setting-buttons">
-                <a id="change-instant" href="<?=URL?>/action.php?instant=<?=strtolower($logged['user_instant'])?>"><i class="fas fa-toggle-<?=strtolower($logged['user_instant'])?>"></i> Instant <span><?=strtolower($logged['user_instant'])?></span></a>
-                <a href="<?=URL?>/edit_profile.php"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
+                <a id="change-instant" href="<?=URL?>/action/<?=strtolower($logged['user_instant'])?>"><i class="fas fa-toggle-<?=strtolower($logged['user_instant'])?>"></i> Instant <span><?=strtolower($logged['user_instant'])?></span></a>
+                <a href="<?=URL?>/edit_profile"><i class="fas fa-pencil-alt"></i> Edit Profile</a>
             </div>
             <?php endif; ?>
 
@@ -50,7 +50,7 @@
                     $i++; 
                     endforeach; ?>
 
-                <a href="<?=URL?>/edit_profile.php" class="profile-link-box <?=($logged['user_instant'] == 'ON' && $owner) ? (($i > 0) ? 'opacity-low' : '')  : '' ?>">
+                <a href="<?=URL?>/edit_profile" class="profile-link-box <?=($logged['user_instant'] == 'ON' && $owner) ? (($i > 0) ? 'opacity-low' : '')  : '' ?>">
                     <div class="profile-link-icon">
                         <img src="<?=URL?>/static/images/social/add.svg" alt="Add">
                     </div>
@@ -67,7 +67,7 @@
 
             <?php if($owner): ?>
             <div class="profile-setting-buttons">
-                <a href="<?=URL?>/edit_profile.php"><i class="fas fa-pencil-alt"></i> Edit Bio</a>
+                <a href="<?=URL?>/edit_profile"><i class="fas fa-pencil-alt"></i> Edit Bio</a>
             </div>
             <?php endif; ?>
         </div>
@@ -76,7 +76,7 @@
 
 <?php if ($profile['user_phone']): ?>
 <div class="vcard">
-    <a href="<?=URL?>/save_vcard.php?slug=<?=$logged['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
+    <a href="<?=URL?>/save_vcard/<?=$logged['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
 </div>
 <?php endif; ?>
 
@@ -100,7 +100,7 @@
 
         e.target.classList.remove('fa-copy');
         e.target.classList.add('fa-check');
-        copy("<?=URL?>/u.php?slug=<?=$profile['user_profile_slug']?>")
+        copy("<?=URL?>/u/<?=$profile['user_profile_slug']?>")
 
         setTimeout(() => {
             e.target.classList.remove('fa-check')
@@ -172,7 +172,7 @@
 
                 }
             };
-            xhttp.open("GET", "<?=URL?>/action.php?instant="+s, true);
+            xhttp.open("GET", "<?=URL?>/action/"+s, true);
             xhttp.send();
         }
 

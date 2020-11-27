@@ -4,7 +4,7 @@ require 'app/start.php';
 
 $logged = check_auth();
 if (!$logged) {
-    go(URL . '/login.php');
+    go(URL . '/login');
 }
 
 if (isset($_GET['instant']) && !empty($_GET['instant'])) {
@@ -13,4 +13,4 @@ if (isset($_GET['instant']) && !empty($_GET['instant'])) {
     update_user_instant_status($status, $logged['user_id']);
 }
 
-go(URL . '/u.php?slug=' . $logged['user_profile_slug']);
+go(URL . '/u/' . $logged['user_profile_slug']);

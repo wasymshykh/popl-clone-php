@@ -45,8 +45,8 @@ if (isset($_POST) && !empty($_POST)) {
                     $stmt->bindParam(":uc", $date_time);
 
                     if ($stmt->execute()) {
-                        $msg = ['type' => 'success', 'message' => 'You have successfully joined! <a href="'.URL.'/login.php">Go to login <i class="fas fa-arrow-right"></i></a>'];
-
+                        $msg = ['type' => 'success', 'message' => 'You have successfully joined! <a href="'.URL.'/login">Go to login <i class="fas fa-arrow-right"></i></a>'];
+                        unset($_POST);
                     } else {
                         $msg = ['type' => 'error', 'message' => 'System error while trying to register!'];
                     }

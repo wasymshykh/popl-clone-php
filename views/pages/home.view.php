@@ -7,9 +7,9 @@
 
 
     <div class="home-buttons">
-        <a href="<?=URL?>/login.php">Login</a>
+        <a href="<?=URL?>/login">Login</a>
         <span>or</span>
-        <a href="<?=URL?>/register.php">Join</a>
+        <a href="<?=URL?>/register">Join</a>
     </div>
 
 </div>

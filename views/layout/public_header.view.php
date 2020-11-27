@@ -20,7 +20,7 @@
 
             <?php if(!isset($no_login)): ?>
                 <div class="header-link">
-                    <a href="<?=URL?>/login.php">Login</a>
+                    <a href="<?=URL?>/login">Login</a>
                 </div>
             <?php endif; ?>
 
@@ -30,7 +30,7 @@
 
             <?php if(!isset($no_login)): ?>
                 <div class="header-link">
-                    <a href="<?=URL?>/register.php">Register</a>
+                    <a href="<?=URL?>/register">Register</a>
                 </div>
             <?php endif; ?>
 

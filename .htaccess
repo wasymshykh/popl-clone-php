@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^u/([-\w]+)$ u.php?slug=$1 [NC,L]
+RewriteRule ^save_vcard/([-\w]+)$ save_vcard.php?slug=$1 [NC,L]
+RewriteRule ^action/([-\w]+)$ action.php?instant=$1 [NC,L]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^([\w-]+)[\/]?$ $1.php [NC,L]
