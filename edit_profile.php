@@ -123,6 +123,45 @@ if (isset($_POST['s-i'])) {
         $image_msg = ['type' => 'error', 'message' => 'Uploaded file is not an image'];
     }
 }
+else
+if (isset($_POST['s-co'])) {
+
+    $check = getimagesize($_FILES["cover-picture"]["tmp_name"]);
+    if($check !== false) {
+    
+        $file_ext = strtolower(pathinfo(basename($_FILES["cover-picture"]["name"]), PATHINFO_EXTENSION));
+        $file_name = 'c_' . time() . '.' . $file_ext;
+        $target_file = DIR . "static/images/uploads/" . $file_name;
+
+        if ($_FILES["cover-picture"]["size"] < 5000000) {
+            
+            if (move_uploaded_file($_FILES["cover-picture"]["tmp_name"], $target_file)) {
+            
+                $sql = "UPDATE `users` SET `user_cover_picture` = :up WHERE `user_id` = :ui";
+
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(":up", $file_name);
+                $stmt->bindParam(":ui", $logged['user_id']);
+
+                if ($stmt->execute()) {
+                    $image_msg = ['type' => 'success', 'message' => 'Image uploaded successfully!'];
+                    $profile = get_user_by_id($logged['user_id']);
+                    
+                } else {
+                    $image_msg = ['type' => 'error', 'message' => 'Sorry could not save the image'];
+                }
+
+            } else {
+                $image_msg = ['type' => 'error', 'message' => 'Sorry could not upload the image'];
+            }
+        } else {
+            $image_msg = ['type' => 'error', 'message' => 'Uploaded file is not too large'];
+        }
+
+    } else {
+        $image_msg = ['type' => 'error', 'message' => 'Uploaded file is not an image'];
+    }
+}
 
 $social = get_social_links_by_profile($profile['user_id']);
 $social_media = get_social_media_all(); 

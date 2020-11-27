@@ -297,11 +297,11 @@ ul {
 }
 .profile-change button,
 .form-submit button {
-    font-size: 0.9em;
+    font-size: 0.85em;
     font-weight: 700;
     color: #173234;
     background-color: #00c1e3;
-    padding: 0.8em 2em;
+    padding: 0.7em 2em;
     border: none;
     outline: none;
     border-radius: 4em;
@@ -316,6 +316,10 @@ ul {
     left: 50%;
     transform: translate(-50%, 0%);
     transition: 0.2s all;
+}
+.cover-change button {
+    left: 0%;
+    transform: translate(0%, 0%);
 }
 
 .profile-change button.no-display {
@@ -372,6 +376,9 @@ ul {
     background-color: #f2f6f7;
     padding: 1em 2em 1em 2em;
     margin-bottom: 1em;
+    margin-left: 0;
+    margin-top: 0;
+    box-sizing: border-box;
 } 
 
 .profile-avatar {
@@ -411,10 +418,12 @@ ul {
 
 .profile-change {
     display: flex;
+    position: relative;
 }
 
 .profile-change label {
-    border-bottom: 1px solid #445253;
+    color: #ffffff;
+    border-bottom: 1px solid #f2f6f7;
 }
 
 .profile-change input {

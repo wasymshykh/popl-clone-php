@@ -1,5 +1,5 @@
 
-<div class="profile-head">
+<div class="profile-head" style="background-image: url(<?=URL?>/static/images/<?=!(empty($profile['user_profile_picture'])) ? "uploads/" .$profile['user_cover_picture'] : 'profile_bg.jpg'?>);">
     <div class="profile-avatar">
         <div class="profile-avatar-icon">
             <img src="<?=URL?>/static/images/<?=!empty($profile['user_profile_picture']) ? "uploads/" .$profile['user_profile_picture'] : 'default_avatar.png'?>" alt="<?=$profile['user_name']?>" alt="<?=$profile['user_name']?>">
@@ -50,6 +50,7 @@
                     $i++; 
                     endforeach; ?>
 
+                <?php if($owner): ?>
                 <a href="<?=URL?>/edit_profile" class="profile-link-box <?=($logged['user_instant'] == 'ON' && $owner) ? (($i > 0) ? 'opacity-low' : '')  : '' ?>">
                     <div class="profile-link-icon">
                         <img src="<?=URL?>/static/images/social/add.svg" alt="Add">
@@ -58,6 +59,7 @@
                         add link
                     </div>
                 </a>
+                <?php endif; ?>
             </div>
 
         </div>

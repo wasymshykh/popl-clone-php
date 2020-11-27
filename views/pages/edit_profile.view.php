@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="settings-page">
+<div class="profile-head settings-page" id="cover" style="background-image: url(<?=URL?>/static/images/<?=!(empty($profile['user_profile_picture'])) ? "uploads/" .$profile['user_cover_picture'] : 'profile_bg.jpg'?>);">
     <?php if ($image_msg): ?>
     <div class="form-message form-<?=$image_msg['type']?>">
         <?=$image_msg['message']?>
@@ -21,12 +21,20 @@
             <img src="<?=URL?>/static/images/<?=!empty($profile['user_profile_picture']) ? "uploads/" .$profile['user_profile_picture'] : 'default_avatar.png'?>" alt="<?=$profile['user_name']?>" id="avatar">
         </label>
         <form method="POST" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data" class="profile-change" >
-            <label for="profile-picture">upload picture</label>
+            <label for="profile-picture">upload profile picture</label>
             <input type="file" accept="image/*" name="profile-picture" id="profile-picture" onchange="loadFile(event)">
             <input type="hidden" name="s-i">
             <button type="submit" id="image-change-btn" class="no-display">Save Change</button>
         </form>
     </div>
+
+    
+    <form method="POST" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data" class="profile-change cover-change" >
+        <label for="cover-picture">upload cover picture</label>
+        <input type="file" accept="image/*" name="cover-picture" id="cover-picture" onchange="loadFileCover(event)">
+        <input type="hidden" name="s-co">
+        <button type="submit" id="cover-change-btn" class="no-display">Save Change</button>
+    </form>
 </div>
 
 <div class="profile-settings">
@@ -100,6 +108,23 @@
             URL.revokeObjectURL(output.src)
         }
         document.getElementById('image-change-btn').classList.remove('no-display');
+    };
+    const loadFileCover = function(event) {
+
+        event = event.target;
+        if (event.files && event.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                console.log('sfsd');
+                document.querySelector("#cover").style.backgroundImage = 'url('+e.target.result +')';
+            }
+
+            reader.readAsDataURL(event.files[0]);
+        }
+
+        document.getElementById('cover-change-btn').classList.remove('no-display');
+        
     };
 </script>
 
