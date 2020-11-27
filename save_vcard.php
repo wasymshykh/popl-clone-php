@@ -35,4 +35,3 @@ if (!empty($profile['user_address'])) {
 
 $vcardObj->download();
 exit();
-

@@ -489,7 +489,9 @@ ul {
 
 .profile-setting-buttons {
     display: flex;
+    flex-wrap: wrap;
     margin-bottom: 1em;
+    justify-content: center;
 }
 
 .profile-setting-buttons a {
@@ -499,20 +501,18 @@ ul {
     border-radius: 4px;
     background-color: #1d2329;
     color: #e0e0e0;
+    margin: 0.5em 0.6em;
 }
 .profile-setting-buttons a i {
     margin-right: 0.6em;
     pointer-events: none;
 }
 
-.profile-setting-buttons a:nth-child(2) {
-    margin-left: 1em;
-}
-
 .profile-links {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
 }
 
 .profile-link-box {
@@ -669,3 +669,26 @@ ul {
     color: #ffffff;
 }
 
+@media screen and (max-width: 500px) {
+    
+    .profile-link-box {
+        width: 46%;
+        margin: 0.5em 2%;
+    }
+    .profile-link-description {
+        font-size: 0.9em;
+        padding-bottom: 0.4em;
+        padding-top: 0.2em;
+    }
+    .social-input input {
+        padding: 0.4em 1.4em;
+    }
+    
+    .profile-avatar-icon {
+        max-width: 80px;
+    }
+    
+    .profile-avatar {
+        margin-bottom: 0.8em;
+    }
+}

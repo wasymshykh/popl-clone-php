@@ -78,7 +78,7 @@
 
 <?php if ($profile['user_phone']): ?>
 <div class="vcard">
-    <a href="<?=URL?>/save_vcard/<?=$logged['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
+    <a href="<?=URL?>/save_vcard/<?=$profile['user_profile_slug']?>"><i class="fas fa-plus"></i> Save vcard</a>
 </div>
 <?php endif; ?>
 
