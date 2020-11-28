@@ -42,8 +42,8 @@
                 <ul>
                     <li><a href="<?=URL?>/u/<?=$logged['user_profile_slug']?>"><i class="menu-icon menu-icon-home"></i> Home</a></li>
                     <li><a href="<?=URL?>/edit_profile"><i class="menu-icon menu-icon-profile"></i> Wijzig Profiel</a></li>
-                    <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-activate"></i> Activate</a></li>
-                    <li><a href="<?=URL?>/"><i class="menu-icon menu-icon-help"></i> Uitleg</a></li>
+                    <li><a href="<?=URL?>/activate"><i class="menu-icon menu-icon-activate"></i> Activate</a></li>
+                    <li><a href="<?=URL?>/help"><i class="menu-icon menu-icon-help"></i> Uitleg</a></li>
                     <li><a href="<?=URL?>/logout"><i class="menu-icon menu-icon-logout"></i> Loguit</a></li>
                 </ul>
             </div>
